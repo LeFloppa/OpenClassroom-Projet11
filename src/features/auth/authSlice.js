@@ -1,9 +1,11 @@
 import { createSlice, createAction } from "@reduxjs/toolkit";
 import { validateLogin, getUserProfile } from "../../apiservice";
 
+// Asynchronous action for user login.
 export const loginUser = (loginData) => {
   return async (dispatch) => {
     try {
+      // Attempt to login by calling the login validation API.
       const response = await validateLogin(loginData);
 
       if (!response.ok) {
@@ -12,6 +14,7 @@ export const loginUser = (loginData) => {
 
       const data = await response.json();
 
+      // If a token is received, login is successful.
       if (data.body?.token) {
         dispatch(loginUserSuccess(data.body.token));
       } else {
@@ -27,6 +30,7 @@ export const loginUser = (loginData) => {
 
 export const logout = createAction("auth/logout");
 
+// Asynchronous action to retrieve the user's profile
 export const fetchUserProfile = (token) => {
   return async (dispatch) => {
     try {
@@ -45,8 +49,10 @@ export const fetchUserProfile = (token) => {
   };
 };
 
+// Synchronous action created to handle parts of the state.
 export const updateUserName = createAction("auth/updateUserName");
 
+// Selectors to access different parts of the state.
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -73,6 +79,7 @@ const authSlice = createSlice({
   },
 });
 
+// Selectors to access different parts of the state.
 export const selectToken = (state) => state.auth.token;
 export const selectStatus = (state) => state.auth.status;
 export const selectUserName = (state) => state.auth.userName;
