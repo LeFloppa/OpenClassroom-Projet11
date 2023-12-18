@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectToken, logout, selectUserName } from '../../features/auth/authSlice';
 import './header.css';
-import logo from '../../img/argentBankLogo.png';
+import logo from '../../img/argentBankLogo-min.webp';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function Header() {
