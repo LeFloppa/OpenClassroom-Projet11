@@ -35,3 +35,30 @@ export async function getUserProfile(token) {
     throw new Error(error.message);
   }
 }
+
+export async function updateUsername(token, newUsername) {
+  try {
+    const response = await fetch(`${baseUrl}/user/profile`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({ userName: newUsername }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP Error: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (data.status === 200) {
+      return data;
+    } else {
+      throw new Error(data.message);
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}

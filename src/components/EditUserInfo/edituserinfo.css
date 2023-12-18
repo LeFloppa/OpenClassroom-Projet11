@@ -1,0 +1,58 @@
+.headerEditUserInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #000000c7;
+    font-size: 0.9rem;
+    font-weight: normal;
+    margin-bottom: 1.5rem;
+    width: 400px;
+}
+
+.headerEditUserInfo h1 {
+    font-size: 2rem;
+}
+
+
+.logging-again {
+    text-decoration: none;
+}
+
+
+.edit-user-button {
+    border-color: #00bc77;
+    background-color: #00bc77;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 45px;
+    border-radius: 3px;
+    margin: 20px 5px 0 0;
+}
+
+  .edit-user-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto 1rem;
+  }
+
+  .sign-in-icon {
+    font-size: 5rem;
+  }
+
+  .input-wrapper-user-info {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0.75rem;
+  }
+
+  .input-wrapper-user-info label {
+    display: flex;
+    min-width: 5.5rem;
+    align-items: center;
+  }
+
+  .input-wrapper-user-info input {
+    padding: 5px;
+    font-size: 0.75rem;
+  }

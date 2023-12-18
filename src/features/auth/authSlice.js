@@ -18,12 +18,12 @@ export const loginUser = (loginData) => {
       if (data.body?.token) {
         dispatch(loginUserSuccess(data.body.token));
       } else {
-        throw new Error("Invalid email or password");
+        throw new Error(data.message);
       }
 
       return data;
     } catch (error) {
-      throw new Error("Login failed: " + error.message);
+      throw new Error(error.message);
     }
   };
 };
@@ -38,10 +38,10 @@ export const fetchUserProfile = (token) => {
 
       const data = await response.json();
 
-      console.log(data.body.userName);
-
       if (data.body) {
         dispatch(updateUserName(data.body.userName));
+        dispatch(updateFirstName(data.body.firstName));
+        dispatch(updateLastName(data.body.lastName));
       }
     } catch (error) {
       console.error("Error fetching user profile:", error);
@@ -51,6 +51,8 @@ export const fetchUserProfile = (token) => {
 
 // Synchronous action created to handle parts of the state.
 export const updateUserName = createAction("auth/updateUserName");
+export const updateFirstName = createAction('auth/updateFirstName');
+export const updateLastName = createAction('auth/updateLastName');
 
 // Selectors to access different parts of the state.
 const authSlice = createSlice({
@@ -59,22 +61,31 @@ const authSlice = createSlice({
     token: null,
     status: "idle",
     userName: null,
+    firstName: null,
+    lastName: null,
     error: null,
   },
   reducers: {
     loginUserSuccess: (state, action) => {
       state.token = action.payload;
       state.status = "succeeded";
-      state.userName = null;
       state.error = null;
     },
     logout: (state) => {
       state.token = null;
+      state.firstName = null;
+      state.lastName = null;
       state.status = "idle";
       state.error = null;
     },
     updateUserName: (state, action) => {
       state.userName = action.payload;
+    },
+    updateFirstName: (state, action) => {
+      state.firstName = action.payload;
+    },
+    updateLastName: (state, action) => {
+      state.lastName = action.payload;
     },
   },
 });
@@ -83,6 +94,8 @@ const authSlice = createSlice({
 export const selectToken = (state) => state.auth.token;
 export const selectStatus = (state) => state.auth.status;
 export const selectUserName = (state) => state.auth.userName;
+export const selectFirstName = (state) => state.auth.firstName;
+export const selectLastName = (state) => state.auth.lastName;
 export const selectError = (state) => state.auth.error;
 
 export const { loginUserSuccess } = authSlice.actions;

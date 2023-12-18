@@ -8,8 +8,8 @@ import UserPage from './pages/accountpage/account';
 import EditPage from "./pages/editpage/editpage";
 import './App.css';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCircleUser, faRightFromBracket, faGear } from '@fortawesome/free-solid-svg-icons'
-library.add(faCircleUser, faRightFromBracket, faGear);
+import { faCircleUser, faRightFromBracket, faGear, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+library.add(faCircleUser, faRightFromBracket, faGear, faChevronRight);
 
 function App() {
   return (
