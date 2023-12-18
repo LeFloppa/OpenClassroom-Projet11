@@ -1,9 +1,9 @@
-import React from 'react';
-import './feature.css';
-import FeatureItem from '../featureitem/featureitem';
-import chatIcon from '../../img/icon-chat.png';
-import moneyIcon from '../../img/icon-money.png'; 
-import securityIcon from '../../img/icon-security.png';
+import React from "react";
+import "./feature.css";
+import FeatureItem from "../featureitem/featureitem";
+import chatIcon from "../../img/icon-chat.png";
+import moneyIcon from "../../img/icon-money.png";
+import securityIcon from "../../img/icon-security.png";
 
 function FeaturesSection() {
   return (

@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectToken, logout } from '../../features/auth/authSlice';
+import { selectToken, logout, selectUserName } from '../../features/auth/authSlice';
 import './header.css';
-
 import logo from '../../img/argentBankLogo.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function Header() {
   const token = useSelector(selectToken);
   const dispatch = useDispatch();
+  const userName = useSelector(selectUserName);
+
 
   const handleLogout = () => {
     dispatch(logout());
@@ -22,15 +24,27 @@ function Header() {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
-      <div>
+      <div class="nav-holder">
+      {token ? (
+          <div>
+          <Link to="/profile" className="main-nav-item">
+            <FontAwesomeIcon className="iconCircle" icon="fa-solid fa-circle-user" />
+            {userName}
+          </Link>
+          <Link to="/edit-username" className="main-nav-item">
+            <FontAwesomeIcon icon="fa-solid fa-gear" />
+          </Link>
+        </div>
+          ) : (
+            <FontAwesomeIcon className="iconCircle" icon="fa-solid fa-circle-user" />
+          )}
         {token ? (
           <Link to="/" className="main-nav-item" onClick={handleLogout}>
-            <i className="fa fa-sign-out"></i>
+            <FontAwesomeIcon className="iconLogout" icon="fa-solid fa-right-from-bracket" />
             Sign Out
           </Link>
         ) : (
-          <Link to="/sign-in" className="main-nav-item">
-            <i className="fa fa-user-circle"></i>
+          <Link to="/login" className="main-nav-item">
             Sign In
           </Link>
         )}

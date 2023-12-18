@@ -1,18 +1,22 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { loginUser, loginUserSuccess, fetchUserProfile } from '../../features/auth/authSlice';
-import { useNavigate } from 'react-router-dom';
-import './signin.css';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import {
+  loginUser,
+  loginUserSuccess,
+  fetchUserProfile,
+} from "../../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
+import "./signin.css";
 
 function SignIn() {
-  const [loginData, setLoginData] = useState({ email: '', password: '' });
-  const [error, setError] = useState('');
+  const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     const { email, password } = loginData;
 
@@ -24,20 +28,19 @@ function SignIn() {
         if (responseData?.body?.token) {
           dispatch(loginUserSuccess(responseData.body.token));
           dispatch(fetchUserProfile(responseData.body.token));
-          navigate('/user');
+          navigate("/profile");
         } else {
-          setError('Invalid email or password');
+          setError("Invalid email or password");
         }
       } else {
         if (responseData.status === 400) {
           const errorData = await responseData.json();
-          console.log(responseData)
           setError(errorData.message);
         } else if (responseData.status === 500) {
           const errorData = await responseData.json();
           setError(errorData.message);
         } else {
-          setError('HTTP Error: ' + responseData.status);
+          setError("HTTP Error: " + responseData.status);
         }
       }
     } catch (error) {
@@ -47,7 +50,7 @@ function SignIn() {
   return (
     <form onSubmit={handleSubmit}>
       <div className="input-wrapper">
-      <label htmlFor="email">Username</label>
+        <label htmlFor="email">Username</label>
         <input
           type="text"
           id="email"

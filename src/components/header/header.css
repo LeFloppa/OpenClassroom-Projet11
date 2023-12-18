@@ -17,7 +17,21 @@
   .main-nav-item {
     text-decoration: none;
     margin-right: 0.5rem;
+    margin-left: 0.3rem;
   }
+
+  .main-nav-item .iconLogout {
+    margin-right: 0.3rem;
+  }
+
+  .main-nav-item .fa-gear {
+    margin-right: 0.3rem;
+  }
+
+  .main-nav-item .iconCircle {
+    margin-right: 0.25rem;
+  }
+
 
   .main-nav-item:hover {
     text-decoration: underline;
@@ -36,4 +50,9 @@
   .header {
     color: #fff;
     margin-bottom: 2rem;
+  } 
+
+  .nav-holder {
+    display: flex;
+    align-items: center;
   }
