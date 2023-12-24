@@ -24,7 +24,7 @@ function Header() {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
-      <div class="nav-holder">
+      <div className="nav-holder">
       {token ? (
           <div>
           <Link to="/profile" className="main-nav-item">

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
   loginUser,
   loginUserSuccess,
+  logout,
   fetchUserProfile,
 } from "../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +14,31 @@ function SignIn() {
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("userToken");
+    if (token) {
+      dispatch(loginUserSuccess(token));
+      dispatch(fetchUserProfile(token))
+        .then(response => {
+          if (response.ok) {
+            response.json().then(data => {
+              if (data.body) {
+                navigate("/profile");
+              } else {
+                throw new Error("Invalid token");
+              }
+            });
+          } else {
+            throw new Error("Profile fetch failed");
+          }
+        })
+        .catch(() => {
+          localStorage.removeItem("userToken");
+          dispatch(logout());
+        });
+    }
+  }, [dispatch, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,6 +52,7 @@ function SignIn() {
 
       if (responseData.status === 200) {
         if (responseData?.body?.token) {
+          localStorage.setItem("userToken", responseData.body.token);
           dispatch(loginUserSuccess(responseData.body.token));
           dispatch(fetchUserProfile(responseData.body.token));
           navigate("/profile");
@@ -47,6 +74,7 @@ function SignIn() {
       setError(error.message);
     }
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="input-wrapper">
